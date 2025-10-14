@@ -1,28 +1,360 @@
+/* ======= PALETA OSCURA WHATSAPP ======= */
+:root {
+    --wp-bg: #111b21;
+    --wp-elev: #1f2c34;
+    --wp-elev-2: #202c33;
+    --wp-text: #e9edef;
+    --wp-muted: #8696a0;
+    --wp-green: #005c4b;
+    /* burbuja "me" */
+    --wp-seen: #53bdeb;
+    /* doble tilde */
+}
+
+/* Layout base que ya tenías, versionado a oscuro */
+html,
+body,
+#root {
+    height: 100%;
+}
+
 body {
-    margin: 0;
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif;
-    background: #0b141a;
-    color: #e9edef;
+    background: var(--wp-bg);
+    color: var(--wp-text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 }
 
-.topbar {
-    background: #202c33;
-    padding: 12px 16px;
-    font-weight: bold;
-    color: #e9edef;
+.hero {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background: var(--wp-bg);
 }
 
-.sidebar {
-    background: #111b21;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 100vh;
-    width: 320px;
+.contenedorhero_basehijo {
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
 
-.placeholder {
+/* Lista izquierda */
+.contenedoruno_hijo {
+    width: 30%;
+    min-width: 280px;
+    max-width: 420px;
+    background: var(--wp-elev);
+    border-right: 1px solid #1a242a;
+    display: flex;
+    flex-direction: column;
+}
+
+.content_chatList {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--wp-elev-2);
+    border-bottom: 1px solid #182229;
+}
+
+.titulo_left {
+    font-size: 20px;
+    color: var(--wp-text);
+    margin: 0;
+}
+
+.icons_right_chatList i {
+    color: var(--wp-text);
+    opacity: .8;
+    cursor: pointer;
+}
+
+.icons_right_chatList i:hover {
+    opacity: 1;
+}
+
+.contenedor_buscador {
+    padding: 12px;
+}
+
+.buscador_box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #23323b;
+    border-radius: 20px;
+    padding: 8px 12px;
+}
+
+.buscador_box input {
     flex: 1;
-    color: #8696a0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--wp-text);
+}
+
+.icon_buscador {
+    color: var(--wp-muted);
+}
+
+.chat-filters {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+}
+
+.filter-button {
+    background: transparent;
+    color: var(--wp-muted);
+    border: 1px solid #2a3942;
+    border-radius: 16px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.filter-button.active {
+    background: #0b3d35;
+    color: #cde4de;
+    border-color: #0b3d35;
+}
+
+.contact_list {
+    list-style: none;
+    overflow: auto;
+}
+
+.contact-list a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 12px;
+    color: var(--wp-text);
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    background: #1a2a32;
+}
+
+.photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.name_contact h2 {
+    font-size: 16px;
+    color: var(--wp-text);
+}
+
+.state_contact {
+    color: var(--wp-muted);
+    font-size: 12px;
+}
+
+/* Panel derecho */
+.contenedordos_padre_ms {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--wp-bg);
+}
+
+.contenedordos_hijo_ms {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header_message_hijo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 64px;
+    padding: 8px 12px;
+    background: var(--wp-elev-2);
+    border-left: 1px solid #182229;
+}
+
+.back-arrow-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--wp-text);
+    cursor: pointer;
+}
+
+.back-arrow-button:hover {
+    color: #00a884;
+}
+
+.contacto_foto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.titulo_right {
+    color: var(--wp-text);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.status {
+    color: var(--wp-muted);
+    font-size: 12px;
+}
+
+.chat_actions i {
+    color: var(--wp-muted);
+    margin-left: 16px;
+    cursor: pointer;
+}
+
+.chat_actions i:hover {
+    color: #00a884;
+}
+
+/* Fondo del chat */
+.content_message_screen {
+    position: relative;
+    flex: 1;
+    background: var(--wp-bg);
+    background-image: url("/src/assets/fondo-whatsapp.png");
+    background-size: 500px;
+    background-repeat: repeat;
+}
+
+.message_list {
+    height: 100%;
+    overflow: auto;
+    padding: 16px 18px;
+}
+
+/* Burbujas */
+.bubble-row {
+    width: 100%;
+    display: flex;
+    margin-bottom: 6px;
+}
+
+.bubble-row.right {
+    justify-content: flex-end;
+}
+
+.bubble-row.left {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    display: inline-block;
+    max-width: 75%;
+    padding: 8px 10px 4px 10px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.message-bubble.me {
+    background: var(--wp-green);
+    color: var(--wp-text);
+    border-top-right-radius: 0;
+}
+
+.message-bubble.them {
+    background: #202c33;
+    color: var(--wp-text);
+    border-top-left-radius: 0;
+}
+
+.p_message {
+    white-space: pre-wrap;
+    line-height: 1.35;
+}
+
+.metadata {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    position: relative;
+    margin-top: 4px;
+    justify-content: flex-end;
+    font-size: 11px;
+    color: #c7d3d9;
+    opacity: .9;
+}
+
+.p_time {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Doble tilde leído */
+.wc-checks {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    top: 1px;
+}
+
+.wc-checks .tick {
+    stroke: var(--wp-muted);
+    stroke-width: 2;
+    fill: none;
+}
+
+.wc-checks.seen .tick {
+    stroke: var(--wp-seen);
+}
+
+.wc-checks .second {
+    margin-left: -6px;
+}
+
+/* Input */
+.content_formulario_padre {
+    background: var(--wp-elev-2);
+    border-top: 1px solid #182229;
+}
+
+.content_formulario_hijo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+}
+
+.emoji_form {
+    color: var(--wp-muted);
+    background: none;
+    border: none;
+}
+
+.textarea_form {
+    width: 100%;
+    color: var(--wp-text);
+    background: #23323b;
+    border: 1px solid #2a3942;
+    border-radius: 20px;
+    padding: 10px 14px;
+    resize: none;
+    outline: none;
+}
+
+.button_enviar {
+    background: #25d366;
+    color: #0b141a;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.button_enviar i {
+    color: #0b141a;
 }
