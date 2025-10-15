@@ -1,46 +1,56 @@
-// src/components/ChatWindow.jsx
-import { useEffect, useRef } from "react";
-import Header from "./Header";
-import MessageBubble from "./MessageBubble";
-import MessageInput from "./MessageInput";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { chatsById, contacts } from "../data/mockData.js";
+import MessageBubble from "./MessageBubble.jsx";
+import MessageInput from "./MessageInput.jsx";
 
-export default function ChatWindow({ contact, onBack, onSend }) {
-    const listRef = useRef(null);
+export default function ChatWindow() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const contact = contacts.find((c) => c.id === id);
+    const [messages, setMessages] = useState(chatsById[id] || []);
 
-    // Auto-scroll al final cuando cambia la conversación
-    useEffect(() => {
-        if (listRef.current) {
-            listRef.current.scrollTop = listRef.current.scrollHeight;
-        }
-    }, [contact]);
-
-    if (!contact) {
-        // Pantalla de bienvenida cuando no hay chat
-        return (
-            <div className="contenedordos_hijo" style={{ background: "var(--wp-bg)" }}>
-                <div className="content_hijo_home">
-                    <img className="logo-wp" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="logo" />
-                    <p className="texto-noselect">Bienvenido al chat de WhatsApp</p>
-                </div>
-            </div>
-        );
-    }
+    const handleSend = (text) => {
+        const newMsg = {
+            id: Date.now(),
+            from: "me",
+            text,
+            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            status: "sent",
+        };
+        setMessages([...messages, newMsg]);
+    };
 
     return (
-        <div className="contenedordos_padre_ms">
-            <div className="contenedordos_hijo_ms">
-                <Header contact={contact} onBack={onBack} />
-
-                <div className="content_message_screen">
-                    <div className="message_list" ref={listRef}>
-                        {contact.messages.map((m) => (
-                            <MessageBubble key={m.id} msg={m} />
-                        ))}
+        <div className="chat-window">
+            <header className="chat-header">
+                <button className="back-btn" onClick={() => navigate("/")}>
+                    ←
+                </button>
+                <div className="chat-header-info">
+                    <div className="chat-avatar">
+                        <img src={contact.avatar} alt={contact.name} />
+                    </div>
+                    <div>
+                        <h3 className="chat-name">{contact.name}</h3>
+                        <p className="chat-status">en línea</p>
                     </div>
                 </div>
+            </header>
 
-                <MessageInput onSend={onSend} />
+            <div className="chat-messages">
+                {messages.map((msg) => (
+                    <MessageBubble
+                        key={msg.id}
+                        from={msg.from}
+                        text={msg.text}
+                        time={msg.time}
+                        status={msg.status}
+                    />
+                ))}
             </div>
+
+            <MessageInput onSend={handleSend} />
         </div>
     );
 }

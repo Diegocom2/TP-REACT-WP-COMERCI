@@ -1,0 +1,389 @@
+/* ===== RESET BÁSICO ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #0b141a;
+    color: #e9edef;
+}
+
+/* ===== ESTRUCTURA GENERAL ===== */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    background: #111b21;
+    color: #e9edef;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 360px;
+    background: #202c33;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1a242b;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: #202c33;
+    border-bottom: 1px solid #1a242b;
+}
+
+.sidebar-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.search-bar {
+    padding: 8px 14px;
+    background: #111b21;
+    border-bottom: 1px solid #1a242b;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background: #2a3942;
+    color: #e9edef;
+    font-size: 14px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-around;
+    background: #111b21;
+    padding: 6px 0;
+    border-bottom: 1px solid #1a242b;
+}
+
+.filters button {
+    background: none;
+    border: none;
+    color: #8696a0;
+    font-size: 13px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.filters button.active {
+    color: #00a884;
+    font-weight: 600;
+}
+
+/* ===== CONTACT LIST ===== */
+.contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.contact-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.contact-link:hover {
+    background: #2a3942;
+}
+
+.contact-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #2a3942;
+    flex-shrink: 0;
+}
+
+.contact-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.contact-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #e9edef;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 💬 Estado debajo del nombre */
+.contact-status {
+    font-size: 13px;
+    color: #9ca8b3;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ===== PANEL PRINCIPAL (CHAT) ===== */
+.chat-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #0b141a;
+}
+
+/* ===== PANTALLA DE BIENVENIDA ===== */
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #8696a0;
+}
+
+.welcome-screen h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #e9edef;
+}
+
+.welcome-screen p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.welcome-icon {
+    width: 90px;
+    opacity: 0.5;
+}
+
+/* ===== CHAT WINDOW ===== */
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* HEADER DEL CHAT */
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #202c33;
+    border-bottom: 1px solid #1a242b;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #e9edef;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 6px;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e9edef;
+}
+
+.chat-status {
+    font-size: 13px;
+    color: #8696a0;
+}
+
+/* MENSAJES */
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* BURBUJAS DE MENSAJES */
+.bubble-row {
+    display: flex;
+    width: 100%;
+}
+
+.bubble-row.mine {
+    justify-content: flex-end;
+}
+
+.bubble {
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.bubble.theirs {
+    background: #202c33;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+}
+
+.bubble.mine {
+    background: #005c4b;
+    color: #fff;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+}
+
+.bubble-meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 11px;
+    color: #b1b3b5;
+    margin-top: 2px;
+    gap: 4px;
+}
+
+.ticks {
+    font-size: 11px;
+    color: #b1b3b5;
+}
+
+.ticks.read {
+    color: #53bdeb;
+}
+
+/* INPUT DE MENSAJES */
+.input-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #202c33;
+    border-top: 1px solid #1a242b;
+    gap: 10px;
+}
+
+.msg-input {
+    flex: 1;
+    background: #2a3942;
+    color: #e9edef;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 14px;
+    font-size: 14px;
+    outline: none;
+}
+
+.send-btn {
+    background: #00a884;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #374045;
+    border-radius: 6px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100px;
+    }
+
+    .contact-info {
+        display: none;
+    }
+
+    .chat-name {
+        font-size: 14px;
+    }
+
+    .chat-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .bubble {
+        max-width: 85%;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        display: none;
+    }
+
+    .chat-window {
+        width: 100%;
+    }
+
+    .chat-header {
+        justify-content: flex-start;
+    }
+}

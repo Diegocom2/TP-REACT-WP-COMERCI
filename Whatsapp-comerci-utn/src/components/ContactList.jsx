@@ -1,27 +1,24 @@
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { contacts } from "../data/mockData.js";
 
-export default function ContactList({ items }) {
-    const { pathname } = useLocation();
-
+export default function ContactList() {
     return (
-        <ul className="contact-list" role="list">
-            {items.map((c) => {
-                const isActive = pathname === `/chat/${c.id}`;
-                return (
-                    <li key={c.id} className={`contact-item ${isActive ? "active" : ""}`}>
-                        <Link to={`/chat/${c.id}`} className="contact-link">
-                            <img className="avatar" src={c.avatar} alt={c.name} loading="lazy" />
-                            <div className="meta">
-                                <div className="name-row">
-                                    <span className="name">{c.name}</span>
-                                    <span className="time">{/* espacio para hora */}</span>
-                                </div>
-                                <div className="last">{c.lastMessage}</div>
-                            </div>
-                        </Link>
-                    </li>
-                );
-            })}
+        <ul className="contact-list">
+            {contacts.map((c) => (
+                <li key={c.id} className="contact-item">
+                    <Link to={`/chat/${c.id}`} className="contact-link">
+                        <div className="contact-avatar">
+                            <img src={c.avatar} alt={c.name} />
+                        </div>
+                        <div className="contact-info">
+                            <span className="contact-name">{c.name}</span>
+                            <span className="contact-status">{c.status}</span>
+                        </div>
+                    </Link>
+                </li>
+            ))}
         </ul>
     );
 }
+
