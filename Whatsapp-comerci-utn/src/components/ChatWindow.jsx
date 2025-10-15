@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import MessageInput from "./MessageInput.jsx";
 import { chatsById, contacts } from "../data/mockData.js";
 
@@ -7,12 +8,29 @@ export default function ChatWindow() {
     const navigate = useNavigate();
 
     const contact = contacts.find((c) => c.id === id);
-    const messages = chatsById[id] || [];
+    const initialMessages = chatsById[id] || [];
+
+    const [messages, setMessages] = useState(initialMessages);
+
+    const handleSendMessage = (text) => {
+        if (!text.trim()) return;
+
+        const now = new Date();
+        const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        const newMessage = {
+            id: Date.now(),
+            text,
+            time,
+            from: "me",
+        };
+
+        setMessages((prev) => [...prev, newMessage]);
+    };
 
     return (
         <div className="chat-window">
             <header className="chat-header">
-                {/* 🔙 Botón de volver (solo visible en mobile) */}
                 <button className="back-btn" onClick={() => navigate("/")}>
                     ←
                 </button>
@@ -36,13 +54,15 @@ export default function ChatWindow() {
                     >
                         <div className={`bubble ${msg.from === "me" ? "mine" : "theirs"}`}>
                             <p>{msg.text}</p>
-                            <span className="bubble-meta">{msg.time}</span>
+                            <div className="bubble-meta">
+                                <span>{msg.time}</span>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            <MessageInput onSend={(text) => console.log("Mensaje enviado:", text)} />
+            <MessageInput onSend={handleSendMessage} />
         </div>
     );
 }
