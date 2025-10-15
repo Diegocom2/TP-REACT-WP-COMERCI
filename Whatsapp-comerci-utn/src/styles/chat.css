@@ -209,9 +209,17 @@ body,
     background: none;
     border: none;
     color: #e9edef;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 4px 8px;
+    margin-right: 6px;
+    display: none;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .chat-header-info {
@@ -350,32 +358,27 @@ body,
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100px;
-    }
 
-    .contact-info {
-        display: none;
-    }
-
-    .chat-name {
-        font-size: 14px;
-    }
-
-    .chat-avatar {
-        width: 36px;
-        height: 36px;
-    }
-
-    .bubble {
-        max-width: 85%;
-        font-size: 13px;
-    }
-}
-
+/* 📱 Móviles */
 @media (max-width: 480px) {
+    .app-layout {
+        flex-direction: column;
+        height: 100vh;
+    }
+
     .sidebar {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-right: none;
+    }
+
+    .chat-panel {
+        width: 100%;
+    }
+
+    /* 👇 Oculta la lista cuando hay chat abierto */
+    body:has(.chat-window) .sidebar {
         display: none;
     }
 
@@ -385,5 +388,46 @@ body,
 
     .chat-header {
         justify-content: flex-start;
+    }
+
+    .back-btn {
+        display: block;
+    }
+
+    .contact-link {
+        padding: 12px 18px;
+        gap: 16px;
+    }
+
+    .contact-name {
+        font-size: 16px;
+    }
+
+    .contact-status {
+        font-size: 13px;
+    }
+
+    .search-bar input {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+}
+
+/* 💻 Tablets (entre 600 y 900 px) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .sidebar {
+        width: 260px;
+    }
+
+    .chat-panel {
+        flex: 1;
+    }
+
+    .contact-name {
+        font-size: 15px;
+    }
+
+    .contact-status {
+        font-size: 13px;
     }
 }

@@ -1,56 +1,48 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { chatsById, contacts } from "../data/mockData.js";
-import MessageBubble from "./MessageBubble.jsx";
+import { useNavigate, useParams } from "react-router-dom";
 import MessageInput from "./MessageInput.jsx";
+import { chatsById, contacts } from "../data/mockData.js";
 
 export default function ChatWindow() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const contact = contacts.find((c) => c.id === id);
-    const [messages, setMessages] = useState(chatsById[id] || []);
 
-    const handleSend = (text) => {
-        const newMsg = {
-            id: Date.now(),
-            from: "me",
-            text,
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            status: "sent",
-        };
-        setMessages([...messages, newMsg]);
-    };
+    const contact = contacts.find((c) => c.id === id);
+    const messages = chatsById[id] || [];
 
     return (
         <div className="chat-window">
             <header className="chat-header">
+                {/* 🔙 Botón de volver (solo visible en mobile) */}
                 <button className="back-btn" onClick={() => navigate("/")}>
                     ←
                 </button>
+
                 <div className="chat-header-info">
                     <div className="chat-avatar">
                         <img src={contact.avatar} alt={contact.name} />
                     </div>
                     <div>
                         <h3 className="chat-name">{contact.name}</h3>
-                        <p className="chat-status">en línea</p>
+                        <p className="chat-status">{contact.status}</p>
                     </div>
                 </div>
             </header>
 
             <div className="chat-messages">
                 {messages.map((msg) => (
-                    <MessageBubble
+                    <div
                         key={msg.id}
-                        from={msg.from}
-                        text={msg.text}
-                        time={msg.time}
-                        status={msg.status}
-                    />
+                        className={`bubble-row ${msg.from === "me" ? "mine" : "theirs"}`}
+                    >
+                        <div className={`bubble ${msg.from === "me" ? "mine" : "theirs"}`}>
+                            <p>{msg.text}</p>
+                            <span className="bubble-meta">{msg.time}</span>
+                        </div>
+                    </div>
                 ))}
             </div>
 
-            <MessageInput onSend={handleSend} />
+            <MessageInput onSend={(text) => console.log("Mensaje enviado:", text)} />
         </div>
     );
 }
