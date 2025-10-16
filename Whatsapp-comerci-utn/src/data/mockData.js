@@ -19,7 +19,7 @@ export const contacts = [
     {
         id: "3",
         name: "Nicolás Romero",
-        avatar: "https://i.pravatar.cc/150?img=14", // 👈 imagen masculina
+        avatar: "https://i.pravatar.cc/150?img=14", 
         lastMessage: "¿Jugamos un pádel esta semana? 🎾",
         lastTime: "15:10",
         status: "ayer a las 21:47",
@@ -35,7 +35,6 @@ export const contacts = [
     },
 ];
 
-// === MENSAJES POR CHAT ===
 export const chatsById = {
     "1": [
         { id: "m1", from: "them", text: "Hola! ¿Dónde estás?", time: "17:58", status: "read" },
