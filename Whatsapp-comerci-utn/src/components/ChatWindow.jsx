@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MessageInput from "./MessageInput.jsx";
 import { chatsById, contacts } from "../data/mockData.js";
 
@@ -8,9 +8,11 @@ export default function ChatWindow() {
     const navigate = useNavigate();
 
     const contact = contacts.find((c) => c.id === id);
-    const initialMessages = chatsById[id] || [];
+    const [messages, setMessages] = useState(chatsById[id] || []);
 
-    const [messages, setMessages] = useState(initialMessages);
+    useEffect(() => {
+        setMessages(chatsById[id] || []);
+    }, [id]);
 
     const handleSendMessage = (text) => {
         if (!text.trim()) return;
@@ -25,7 +27,13 @@ export default function ChatWindow() {
             from: "me",
         };
 
-        setMessages((prev) => [...prev, newMessage]);
+        // Actualiza los mensajes locales
+        setMessages((prev) => {
+            const updated = [...prev, newMessage];
+            // Guarda en el objeto global chatsById para persistencia temporal
+            chatsById[id] = updated;
+            return updated;
+        });
     };
 
     return (
